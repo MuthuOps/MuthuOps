@@ -1,0 +1,50 @@
+#Build Array from Permutation
+#using backtracking
+public int[] buildArray(int[] nums) {
+        recur(nums,0);
+        //System.gc();
+        return nums;
+    }
+
+    public void recur(int[] nums,int start){
+        if(start<nums.length){
+            int result=nums[nums[start]];
+            # we have made a temporary value which needed to be store but not assigning to array waiting for recur to complete
+            recur(nums,start+1);
+
+            #we assigning from back after full recursion getting completed.
+            nums[start]=result;
+        }
+    }
+
+
+#Using for loop
+public int[] buildArray(int[] nums) {
+        int[] arr = new int[nums.length];
+        for(int i=0;i<nums.length;i++){
+            arr[i]=nums[nums[i]];
+        }
+
+        return arr;
+    }
+
+#a+nb formula
+#let a = nums[i] and b= nums[nums[i]]
+#let nums=[0,2,1,5,3,4]
+#if a = nums[3] = 5 then b = nums[nums[3]] = nums[5] = 4
+#29%n = 29 % 6 = 5 = a; so formula for a = (a+nb)%n
+#29/n = 29/6 = 4 = b ; so formula for b = (a+nb)/n
+#public int[] buildArray(int[] nums) {
+
+        int n = nums.length;
+        for(int i =0;i<nums.length;i++){
+            nums[i]=nums[i]+n*(nums[nums[i]]%n);
+
+        }
+
+        for(int i =0;i<nums.length;i++){
+            nums[i]=nums[i]/n;
+
+        }
+        return nums;
+    }
